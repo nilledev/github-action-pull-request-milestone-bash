@@ -12,3 +12,9 @@ if [[ "$ACTION" != " closed" ]]; then
   echo "Found: $GITHUB_EVENT_NAME.$ACTION"
   exit 1
 fi
+
+IS_MERGED=$(jq -r ".pull_request.merged" $GITHUB_EVENT_PATH)
+if [[ "$IS_MERGED" != "true" ]]; then
+  echo "Pull request closed without merge"
+  exit 0
+fi
