@@ -32,10 +32,6 @@ PR_AUTHOR=$(jq -r ".pull_request.user.login" $GITHUB_EVENT_PATH)
 
 MERGED_COUNT=$(echo $PULLS | jq -c ".[] | select(.merged_at != null and .user.login == \"$PR_AUTHOR\")" | wc -l | tr -d '[:space:]')
 
-INPUT_MERGED_1="Great job, your first PR"
-INPUT_MERGED_13="Unlucky for some? Not for us! That's 13 PRs merged, keep it up!"
-INPUT_MERGED_100="100 Merged PRs? You're the best!"
-
 COMMENT_VAR="INPUT_MERGED_${MERGED_COUNT}"
 COMMENT=${!COMMENT_VAR}
 
